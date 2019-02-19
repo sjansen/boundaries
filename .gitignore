@@ -1,0 +1,11 @@
+# Directories
+/dist/
+
+# Files
+/boundaries
+/TODO
+.DS_Store
+coverage.txt
+
+# Patterns
+.*.sw[op]
