@@ -1,8 +1,6 @@
 #!/bin/sh
 set -e
 
-DIRS=`go list ./... | grep -v /spikes/`
-
 echo ========================================
 go version
 echo ========================================
@@ -16,12 +14,3 @@ go vet  ./...
 echo ========================================
 echo golangci-lint...
 golangci-lint run
-echo ========================================
-echo gofmt...
-UNFORMATTED=`gofmt -l .`
-if [ -n "$UNFORMATTED" ]; then
-    printf "gofmt needed:\n--------------------\n"
-    printf "$UNFORMATTED"
-    echo   # blank line
-    exit 1
-fi
