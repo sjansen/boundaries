@@ -14,7 +14,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - go get -t
+  - go get
   - fossa analyze
   - docker-compose up --abort-on-container-exit --exit-code-from=go --force-recreate
 
