@@ -18,9 +18,10 @@ func TestArgParser(t *testing.T) {
 		expected    cli.Command
 		expectError bool
 	}{{
-		args: []string{
-			"version",
-		},
+		args:     []string{"init"},
+		expected: &commands.InitCmd{},
+	}, {
+		args: []string{"version"},
 		expected: &commands.VersionCmd{
 			App:   "boundaries",
 			Build: "test",

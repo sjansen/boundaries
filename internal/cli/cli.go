@@ -20,6 +20,7 @@ func RegisterCommands(version string) *ArgParser {
 		New("boundaries", "Check and enforce code organization").
 		UsageTemplate(kingpin.CompactUsageTemplate)
 	parser := &ArgParser{app: app}
+	registerInit(parser)
 	registerVersion(parser, version)
 	return parser
 }
