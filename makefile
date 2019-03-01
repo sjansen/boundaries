@@ -21,4 +21,5 @@ test-coverage: test coverage
 
 test-docker:
 	docker-compose --version
+	docker-compose build --pull go
 	docker-compose up --abort-on-container-exit --exit-code-from=go --force-recreate
