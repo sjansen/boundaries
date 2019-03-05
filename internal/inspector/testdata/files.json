@@ -1,0 +1,110 @@
+{
+  "main.go": {
+    "Package": "main",
+    "Imports": [{
+      "Location": "GoRoot",
+      "Path": "fmt"
+    }, {
+      "Location": "Project",
+      "Path": "example.com/foo/pkg/a"
+    }, {
+      "Location": "Project",
+      "Path": "example.com/foo/pkg/b"
+    }, {
+      "Location": "Project",
+      "Path": "example.com/foo/pkg/c"
+    }]
+  },
+  "pkg/a/doc.go": {
+    "Package": "a"
+  },
+  "pkg/a/a_darwin.go": {
+    "Package": "a",
+    "BuildTags": ["darwin"]
+  },
+  "pkg/a/a_linux.go": {
+    "Package": "a",
+    "BuildTags": ["linux"]
+  },
+  "pkg/a/a_windows.go": {
+    "Package": "a",
+    "BuildTags": ["windows"]
+  },
+  "pkg/a/a_test.go": {
+    "Package": "a",
+    "BuildTags": ["slow"],
+    "Imports": [{
+      "Location": "GoRoot",
+      "Path": "testing"
+    }, {
+      "Location": "GoRoot",
+      "Path": "time"
+    }]
+  },
+  "pkg/a/broken.go": null,
+  "pkg/a/mixed.go": {
+    "Package": "a",
+    "BuildTags": ["linux,386", "darwin,!cgo"]
+  },
+  "pkg/b/b.go": {
+    "Package": "b",
+    "Imports": [{
+      "Location": "GoRoot",
+      "Path": "strings"
+    }]
+  },
+  "pkg/b/b_internal_test.go": {
+    "Package": "b",
+    "Imports": [ {
+      "Location": "GoRoot",
+      "Path": "testing"
+    }]
+  },
+  "pkg/b/b_test.go": {
+    "Package": "b_test",
+    "Imports": [{
+      "Location": "GoRoot",
+      "Path": "testing"
+    }, {
+      "Location": "Project",
+      "Path": "example.com/foo/pkg/b"
+    }]
+  },
+  "pkg/c/c.go": {
+    "Package": "c",
+    "Imports": [{
+      "Location": "GoRoot",
+      "Path": "path/filepath"
+    }, {
+      "Location": "GoRoot",
+      "Path": "runtime"
+    }]
+  },
+  "pkg/c/c_test.go": {
+    "Package": "c_test",
+    "Imports": [{
+      "Location": "GoRoot",
+      "Path": "testing"
+    }, {
+      "Location": "Project",
+      "Path": "example.com/foo/pkg/c"
+    }]
+  },
+  "pkg/c/integration_test.go": {
+    "Package": "c_test",
+    "BuildTags": ["integration"],
+    "Imports": [{
+      "Location": "GoRoot",
+      "Path": "io/ioutil"
+    }, {
+      "Location": "GoRoot",
+      "Path": "os"
+    }, {
+      "Location": "GoRoot",
+      "Path": "testing"
+    }, {
+      "Location": "Project",
+      "Path": "example.com/foo/pkg/c"
+    }]
+  }
+}
