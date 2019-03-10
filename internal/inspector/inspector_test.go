@@ -52,10 +52,6 @@ func TestInspector(t *testing.T) {
 			require.Error(err, filename)
 			require.Nil(actual, filename)
 		} else {
-			abspath, err := filepath.Abs(filename)
-			require.NoError(err)
-			expected.AbsPath = abspath
-			expected.RelPath = filename
 			require.NoError(err, filename)
 			require.Equal(expected, actual, filename)
 		}

@@ -1,7 +1,6 @@
 package inspector
 
 import (
-	"go/ast"
 	"go/build"
 	"go/parser"
 	"go/token"
@@ -16,9 +15,6 @@ type Inspector struct {
 }
 
 type File struct {
-	AbsPath string
-	RelPath string
-
 	Package   string
 	BuildTags []string
 	Imports   []*Import
@@ -46,17 +42,7 @@ func New(root string) (*Inspector, error) {
 }
 
 func (ins *Inspector) Inspect(filename string) (*File, error) {
-	abspath, relpath := filename, filename
-	if filepath.IsAbs(filename) {
-		tmp, err := filepath.Rel(ins.root, filename)
-		if err != nil {
-			return nil, err
-		}
-		relpath = tmp
-	} else {
-		abspath = filepath.Join(ins.root, filename)
-	}
-
+	abspath := filepath.Join(ins.root, filename)
 	parsed, err := parser.ParseFile(
 		token.NewFileSet(),
 		abspath, nil,
@@ -67,29 +53,8 @@ func (ins *Inspector) Inspect(filename string) (*File, error) {
 	}
 
 	dir := filepath.Dir(abspath)
-	imports, err := ins.imports(dir, parsed)
-	if err != nil {
-		return nil, err
-	}
-
-	tags := buildTagsFromAST(parsed)
-	if tmp := buildTagsFromFilename(filename); tmp != "" {
-		tags = append(tags, tmp)
-	}
-	f := &File{
-		AbsPath:   abspath,
-		RelPath:   relpath,
-		Package:   parsed.Name.Name,
-		BuildTags: tags,
-		Imports:   imports,
-	}
-
-	return f, nil
-}
-
-func (ins *Inspector) imports(dir string, f *ast.File) ([]*Import, error) {
 	var imports []*Import
-	for _, spec := range f.Imports {
+	for _, spec := range parsed.Imports {
 		p, err := strconv.Unquote(spec.Path.Value)
 		if err != nil {
 			return nil, err
@@ -115,5 +80,16 @@ func (ins *Inspector) imports(dir string, f *ast.File) ([]*Import, error) {
 		}
 		imports = append(imports, imp)
 	}
-	return imports, nil
+
+	tags := buildTagsFromAST(parsed)
+	if tmp := buildTagsFromFilename(abspath); tmp != "" {
+		tags = append(tags, tmp)
+	}
+	f := &File{
+		Package:   parsed.Name.Name,
+		BuildTags: tags,
+		Imports:   imports,
+	}
+
+	return f, nil
 }

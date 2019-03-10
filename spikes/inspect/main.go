@@ -24,7 +24,6 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-		fmt.Println(f.RelPath)
 		fmt.Printf("  %#v\n", f.Package)
 		for _, line := range f.BuildTags {
 			fmt.Printf("  %#v\n", line)

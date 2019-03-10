@@ -1,5 +1,6 @@
 # Directories
 /dist/
+.idea
 
 # Files
 /boundaries

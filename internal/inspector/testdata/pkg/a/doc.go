@@ -1,3 +1,3 @@
-// TODO: Documentation
+// Package Documentation
 
 package a
