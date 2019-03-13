@@ -6,6 +6,6 @@ require (
 	github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/stretchr/testify v1.3.0
-	go.starlark.net v0.0.0-20190215181743-8313b54a20ff
+	go.starlark.net v0.0.0-20190312200640-f223ef841ec3
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
