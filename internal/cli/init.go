@@ -1,8 +1,14 @@
 package cli
 
-import "github.com/sjansen/boundaries/internal/commands"
+import (
+	"os"
 
-func registerInit(p *ArgParser) {
-	c := &commands.InitCmd{}
-	p.addCommand(c, "init", "Create a minimal project config or reinitialize an existing one")
+	"github.com/sjansen/boundaries/internal/commands"
+)
+
+type initCmd struct{}
+
+func (cmd *initCmd) Run() error {
+	init := &commands.InitCmd{}
+	return init.Run(os.Stdout, os.Stderr)
 }

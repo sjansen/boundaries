@@ -1,11 +1,12 @@
 package cli
 
-import "github.com/sjansen/boundaries/internal/commands"
+import "fmt"
 
-func registerVersion(p *ArgParser, build string) {
-	c := &commands.VersionCmd{
-		App:   "boundaries",
-		Build: build,
-	}
-	p.addCommand(c, "version", "Print boundaries's version")
+type versionCmd struct {
+	version string
+}
+
+func (cmd *versionCmd) Run() error {
+	fmt.Println(cmd.version)
+	return nil
 }

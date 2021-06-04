@@ -1,43 +1,24 @@
 package cli
 
 import (
-	"io"
-
-	kingpin "gopkg.in/alecthomas/kingpin.v2"
+	"github.com/alecthomas/kong"
 )
 
-type ArgParser struct {
-	app *kingpin.Application
-	cmd Command
+var cli struct {
+	Help    helpCmd    `kong:"cmd,help='Show this help text'"`
+	Init    initCmd    `kong:"cmd,help='Create a minimal project config or reinitialize an existing one'"`
+	Version versionCmd `kong:"cmd,help='Show the current boundaries version'"`
 }
 
-type Command interface {
-	Run(stdout, stderr io.Writer) error
-}
+// ParseAndRun parses command line arguments then runs the matching command.
+func ParseAndRun(version string) {
+	ctx := kong.Parse(&cli,
+		kong.Description("Check and enforce code organization"),
+		kong.UsageOnError(),
+	)
+	cli.Help.ctx = ctx
+	cli.Version.version = version
 
-func RegisterCommands(version string) *ArgParser {
-	app := kingpin.
-		New("boundaries", "Check and enforce code organization").
-		UsageTemplate(kingpin.CompactUsageTemplate)
-	parser := &ArgParser{app: app}
-	registerInit(parser)
-	registerVersion(parser, version)
-	return parser
-}
-
-func (p *ArgParser) Parse(args []string) (Command, error) {
-	_, err := p.app.Parse(args)
-	if err != nil {
-		return nil, err
-	}
-	return p.cmd, nil
-}
-
-func (p *ArgParser) addCommand(cmd Command, name, help string) *kingpin.CmdClause {
-	clause := p.app.Command(name, help)
-	clause.Action(func(pc *kingpin.ParseContext) error {
-		p.cmd = cmd
-		return nil
-	})
-	return clause
+	err := ctx.Run()
+	ctx.FatalIfErrorf(err)
 }
