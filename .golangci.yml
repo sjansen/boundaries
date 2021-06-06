@@ -12,12 +12,10 @@ linters:
     - gocyclo
     - gofmt
     - goimports
-    - golint
     - gosimple
     - govet
     - ineffassign
     - lll
-    - maligned
     - megacheck
     - misspell
     - structcheck
@@ -30,9 +28,5 @@ linters:
 linters-settings:
     gocyclo:
         min-complexity: 15
-    golint:
-        min-confidence: 0
     lll:
         tab-width: 8
-    maligned:
-        suggest-new: true
