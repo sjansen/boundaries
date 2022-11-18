@@ -2,7 +2,6 @@ package commands
 
 import (
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -19,7 +18,7 @@ func (c *InitCmd) Run(stdout, stderr io.Writer) error {
 	}
 
 	filename := filepath.Join(".boundaries", "config")
-	if err := ioutil.WriteFile(filename, []byte(template), os.ModePerm); err != nil {
+	if err := os.WriteFile(filename, []byte(template), os.ModePerm); err != nil {
 		return err
 	}
 

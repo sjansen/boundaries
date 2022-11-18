@@ -2,7 +2,6 @@ package inspector_test
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -16,7 +15,7 @@ import (
 func TestInspector(t *testing.T) {
 	require := require.New(t)
 
-	data, err := ioutil.ReadFile("testdata/files.json")
+	data, err := os.ReadFile("testdata/files.json")
 	require.NoError(err)
 
 	files := map[string]*inspector.File{}
